@@ -6,7 +6,7 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-interface MessagesInterface
+interface MessagesRepositoryInterface
 {
     public function getMessages(Request $request): LengthAwarePaginator;
 

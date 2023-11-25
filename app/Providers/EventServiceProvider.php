@@ -11,9 +11,9 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * The event to listener mappings for the application.
+     * The event listener mappings for the application.
      *
-     * @var array<class-string, array<int, class-string>>
+     * @var array<string, array<int, string>>
      */
     protected $listen = [
         Registered::class => [

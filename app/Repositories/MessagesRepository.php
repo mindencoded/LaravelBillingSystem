@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\MessagesInterface;
+use App\Interfaces\MessagesRepositoryInterface;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
-class MessagesRepository extends Repository implements MessagesInterface
+class MessagesRepository extends Repository implements MessagesRepositoryInterface
 {
     public function getMessages(Request $request): LengthAwarePaginator
     {

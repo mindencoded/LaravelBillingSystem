@@ -2,7 +2,7 @@
 
 namespace App\Decorators;
 
-use App\Interfaces\MessagesInterface;
+use App\Interfaces\MessagesRepositoryInterface;
 use App\Models\Message;
 use App\Repositories\MessagesRepository;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 
-class CacheMessagesDecorator extends Decorator implements MessagesInterface
+class CacheMessagesDecorator extends Decorator implements MessagesRepositoryInterface
 {
     protected MessagesRepository $messagesRepository;
 

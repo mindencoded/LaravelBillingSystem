@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App;
 use App\Decorators\CacheMessagesDecorator;
-use App\Interfaces\MessagesInterface;
+use App\Interfaces\MessagesRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        App::bind(MessagesInterface::class, CacheMessagesDecorator::class);
+        App::bind(MessagesRepositoryInterface::class, CacheMessagesDecorator::class);
     }
 }

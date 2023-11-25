@@ -8,7 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/normalize.css" rel="stylesheet">
     @vite('resources/css/app.css')
     @yield('stylesheets')
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <script>
+        window.Laravel = {
+            csrfToken: "{{ csrf_token() }}"
+        };
+    </script>
 </head>
 
 <body>

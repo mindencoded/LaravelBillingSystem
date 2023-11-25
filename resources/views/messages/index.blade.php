@@ -7,46 +7,44 @@
     </form>
     <table>
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Message</th>
-            <th>Note</th>
-            <th>Tags</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Note</th>
+                <th>Tags</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
-        @forelse ($messages as $message)
-            <tr>
-                <td>{{ $message->id }}</td>
-                <td>{{ $message->userName() }}</td>
-                <td>{{ $message->userEmail() }}</td>
-                <td>{{ $message->message }}</td>
-                <td>{{ $message->note ? $message->note->body : '' }}</td>
-                <td>
-                    {{ $message->tags->pluck('name')->implode(', ') }}
-                </td>
-                <td>
-                    <form action="{{ route('messages.edit', $message->id) }}" method="GET"
-                          style="display: inline;">
-                        <button type="submit" style="cursor: pointer;">Edit</button>
-                    </form>
-                    |
-                    <form action="{{ route('messages.destroy', $message->id) }}" method="POST"
-                          style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" style="cursor: pointer;">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        @empty
-            <tr>
-                <td colspan="7" style="text-align: center">No messages</td>
-            </tr>
-        @endforelse
+            @forelse ($messages as $message)
+                <tr>
+                    <td>{{ $message->id }}</td>
+                    <td>{{ $message->present()->userName }}</td>
+                    <td>{{ $message->present()->userEmail }}</td>
+                    <td>{{ $message->message }}</td>
+                    <td>{{ $message->note ? $message->note->body : '' }}</td>
+                    <td>
+                        {{ $message->tags->pluck('name')->implode(', ') }}
+                    </td>
+                    <td>
+                        <form action="{{ route('messages.edit', $message->id) }}" method="GET" style="display: inline;">
+                            <button type="submit" style="cursor: pointer;">Edit</button>
+                        </form>
+                        |
+                        <form action="{{ route('messages.destroy', $message->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" style="cursor: pointer;">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7" style="text-align: center">No messages</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
     {{ $messages->fragment('hash')->appends(request()->query())->links() }}

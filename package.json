@@ -6,9 +6,13 @@
         "preview": "vite preview"
     },
     "devDependencies": {
+        "@types/jquery": "^3.5.27",
         "axios": "^1.1.2",
+        "jquery": "^3.7.1",
+        "laravel-echo": "^1.15.3",
         "laravel-vite-plugin": "^0.7.2",
-        "vite": "^4.0.0",
-        "jquery": "^3.7.1"
+        "pusher-js": "^8.3.0",
+        "socket.io-client": "^4.7.2",
+        "vite": "^4.0.0"
     }
 }

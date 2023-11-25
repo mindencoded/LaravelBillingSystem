@@ -40,8 +40,12 @@ class OrderShipped extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
+        /*return new Content(
             view: 'view.name',
+        );*/
+        return new Content(
+            view: 'emails.orders.shipped',
+            text: 'emails.orders.shipped-text'
         );
     }
 

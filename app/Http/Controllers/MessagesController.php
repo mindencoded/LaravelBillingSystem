@@ -3,26 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageWasReceived;
-use App\Interfaces\MessagesInterface;
-use App\Presenters\Presenter;
-use Illuminate\Contracts\View\View;
+use App\Interfaces\MessagesRepositoryInterface;
+use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
-use App\Presenters\MessagePresenter;
 
 class MessagesController extends Controller
 {
-    protected MessagesInterface $messages;
+    protected MessagesRepositoryInterface $messages;
 
-    public function __construct(MessagesInterface $messages)
+    public function __construct(MessagesRepositoryInterface $messages)
     {
         $this->messages = $messages;
     }
 
     /**
      * Display a listing of the resource.
+     * @param Request $request
+     * @return View
      */
     public function index(Request $request): View
     {
@@ -44,6 +44,7 @@ class MessagesController extends Controller
     public function store(StoreMessageRequest $request): RedirectResponse
     {
         $message = $this->messages->store($request);
+
         event(new MessageWasReceived($message));
         return redirect()->route('messages.index')->with('success', 'Message created successfully');
     }
@@ -68,6 +69,9 @@ class MessagesController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param UpdateMessageRequest $request
+     * @param string $id
+     * @return RedirectResponse
      */
     public function update(UpdateMessageRequest $request, string $id): RedirectResponse
     {
@@ -77,6 +81,8 @@ class MessagesController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param string $id
+     * @return RedirectResponse
      */
     public function destroy(string $id): RedirectResponse
     {
