@@ -45,7 +45,9 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request): RedirectResponse
     {
-        $user = User::create($request->all());
+        $user = (new User)->fill($request->all());
+        $user->avatar =  $request->file('avatar')->store('public');
+        $user->save();
         $user->roles()->attach($request->roles);
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
@@ -85,6 +87,9 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $this->authorize($user);
+        if ($request->hasFile('avatar')) {
+            $user->avatar = $request->file('avatar')->store('public');
+        }
         $user->update($request->only('name', 'email'));
         $roles = $request->input('roles');
         $user->roles()->sync($roles);

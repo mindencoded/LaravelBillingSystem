@@ -33,7 +33,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUri($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
  * @mixin \Eloquent
  */
 class Permission extends Model

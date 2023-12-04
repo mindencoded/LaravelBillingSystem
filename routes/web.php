@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\NotifiesController;
+use App\Http\Controllers\PostsController;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
@@ -30,7 +33,7 @@ Route::post('/login', [LoginController::class, 'post'])->name('login.post');
 
 Route::post('/logout', [LogoutController::class, 'post'])->name('logout');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth']);
+
 
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/', [UsersController::class, 'index'])->name('index');
@@ -49,4 +52,31 @@ Route::prefix('messages')->name('messages.')->group(function () {
     Route::put('/update/{id}', [MessagesController::class, 'update'])->name('update');
     Route::get('/edit/{id}', [MessagesController::class, 'edit'])->name('edit');
     Route::delete('/destroy/{id}', [MessagesController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth'])->group(function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('notifies')->name('notifies.')->group(function() {
+        Route::get('/', [NotifiesController::class, 'index'])->name('index');
+        Route::get('/create', [NotifiesController::class, 'create'])->name('create');
+        Route::post('/store', [NotifiesController::class, 'store'])->name('store');
+        Route::delete('/destroy/{id}', [NotifiesController::class, 'destroy'])->name('destroy');
+        Route::get('/mark/{id}', [NotifiesController::class, 'mark'])->name('mark');
+    });
+
+    Route::prefix('notifications')->name('notifications.')->group(function() {
+        Route::get('/', [NotificationsController::class, 'index'])->name('index');
+        Route::get('/show/{id}', [NotificationsController::class, 'show'])->name('show');
+        Route::patch('/read/{id}', [NotificationsController::class, 'read'])->name('read');
+        Route::delete('/destroy/{id}', [NotificationsController::class, 'destroy'])->name('destroy');
+    });
+});
+
+
+Route::prefix('posts')->name('posts.')->group(function () {
+    Route::get('/', [PostsController::class, 'index'])->name('index');
+    Route::get('/show/{id}', [PostsController::class, 'show'])->name('show');
+    Route::get('/create', [PostsController::class, 'create'])->name('create');
+    Route::post('/store', [PostsController::class, 'store'])->name('store');
 });

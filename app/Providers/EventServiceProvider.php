@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\MessageWasReceived;
+use App\Events\PostCreated;
+use App\Listeners\NotifyUsersAboutNewPost;
 use App\Listeners\SendAutoResponder;
 use App\Listeners\SendNotificationToTheOwner;
 use Illuminate\Auth\Events\Registered;
@@ -16,13 +18,16 @@ class EventServiceProvider extends ServiceProvider
      * @var array<string, array<int, string>>
      */
     protected $listen = [
-        Registered::class => [
-            //SendEmailVerificationNotification::class,
-            MessageWasReceived::class => [
-                SendAutoResponder::class,
-                SendNotificationToTheOwner::class
-            ]
+
+        //SendEmailVerificationNotification::class,
+        MessageWasReceived::class => [
+            SendAutoResponder::class,
+            SendNotificationToTheOwner::class
         ],
+        PostCreated::class => [
+            NotifyUsersAboutNewPost::class
+        ]
+
     ];
 
     /**

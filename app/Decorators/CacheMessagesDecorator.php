@@ -8,7 +8,6 @@ use App\Repositories\MessagesRepository;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Redis;
 
 class CacheMessagesDecorator extends Decorator implements MessagesRepositoryInterface
 {
@@ -26,6 +25,7 @@ class CacheMessagesDecorator extends Decorator implements MessagesRepositoryInte
             return $this->messagesRepository->getMessages($request);
         });
     }
+    
     public function findById(string $id): Message
     {
         return Cache::tags('messages')->rememberForever('message.' . $id, function () use ($id) {

@@ -3,9 +3,10 @@
 namespace App\Providers;
 
 use App;
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use App\Decorators\CacheMessagesDecorator;
 use App\Interfaces\MessagesRepositoryInterface;
-use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if ($this->app->isLocal()) {
+            $this->app->register(IdeHelperServiceProvider::class);
+        }
     }
 
     /**
@@ -22,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //Schema::defaultStringLength(191);
         App::bind(MessagesRepositoryInterface::class, CacheMessagesDecorator::class);
     }
 }

@@ -1,7 +1,7 @@
 import './bootstrap';
 
-$('#message_form').on('submit', function () {
-    $(this).find('input[type="submit"]')
+$('form').on('submit', function () {
+    $(this).find('[type="submit"]')
         .attr('disabled', 'disabled');
 });
 
@@ -29,3 +29,4 @@ Echo.channel('messages-channel').listen('MessageWasReceived', function (data) {
     console.log(message);
     $(html).hide().prependTo('tbody').fadeIn();
 });
+

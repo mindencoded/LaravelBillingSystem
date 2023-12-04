@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title></title>
+    <title>Message Received from {{ env('APP_URL') }}</title>
 
     <style type="text/css">
     </style>
@@ -21,7 +21,7 @@
                     <table width="600" cellpadding="0" cellspacing="0" border="0" class="container">
                         <tr>
                             <td align="center" valign="top">
-                                <h1>We will reply to you as soon as possible.</h1>
+                                <h1>Message Received from {{ env('APP_URL') }}.</h1>
                                 <ul>
                                     <li>Email: {{ $messge->email }}</li>
                                     <li>Name: {{ $messge->name }}</li>

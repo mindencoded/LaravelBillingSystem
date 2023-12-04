@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageWasReceived;
-use App\Interfaces\MessagesRepositoryInterface;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
+use App\Interfaces\MessagesRepositoryInterface;
 
 class MessagesController extends Controller
 {
@@ -45,7 +45,10 @@ class MessagesController extends Controller
     {
         $message = $this->messages->store($request);
 
+        //Mail::to($message->email)->send(new MessageReceived($message));
+
         event(new MessageWasReceived($message));
+
         return redirect()->route('messages.index')->with('success', 'Message created successfully');
     }
 

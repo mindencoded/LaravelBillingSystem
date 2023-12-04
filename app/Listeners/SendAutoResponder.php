@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\MessageWasReceived;
+use App\Mail\MessageReceived;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,8 +30,6 @@ class SendAutoResponder implements ShouldQueue
             $message->name = Auth::user()->name;
         }
 
-        Mail::send('emails.contact', ['msg' => $message->message], function ($email) use ($message) {
-            $email->to($message->email, $message->name)->subject('Your message was received.');
-        });
+        Mail::to($message->email)->send(new MessageReceived($message));
     }
 }

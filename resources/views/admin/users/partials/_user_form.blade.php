@@ -1,4 +1,12 @@
 @csrf
+<label for="name">Avatar:</label>
+<input type="file" name="avatar" id="avatar" value="">
+@error('avatar')
+    <br>
+    <span style="color:red;">{{ $message }}</span>
+@enderror
+<br>
+<br>
 <label for="name">Name:</label>
 <input type="text" name="name" id="name" value="{{ $user->name ?? old('name') }}" autofocus autocomplete>
 @error('name')

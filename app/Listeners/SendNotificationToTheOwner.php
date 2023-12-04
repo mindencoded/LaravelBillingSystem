@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Mail\MessageReceivedToOwner;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
@@ -29,8 +30,10 @@ class SendNotificationToTheOwner implements ShouldQueue
             $message->name = Auth::user()->name;
         }
 
-        Mail::send('emails.contact', ['msg' => $message], function ($mail) use ($message) {
+        Mail::to('test@mail.test', 'test')->send(new MessageReceivedToOwner($message));
+
+        /*Mail::send('emails.message-received-to-owner', ['msg' => $message], function ($mail) use ($message) {
             $mail->from($message->email, $message->name)->to('test@mail.test', 'test')->subject('Your message was received.');
-        });
+        });*/
     }
 }
